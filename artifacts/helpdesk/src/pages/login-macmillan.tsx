@@ -11,25 +11,25 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { BookOpenText, Eye, EyeOff, GraduationCap, Headphones, Loader2, Lock, Mail, PlugZap, UserRoundCheck } from "lucide-react";
+import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { getDefaultRouteForRole } from "@/lib/default-route";
 import { toast } from "@/hooks/use-toast";
 import meeLogo from "@/assets/mee-logo.svg";
 
 const loginSchema = z.object({
-  email: z.string().email("Introduce un correo electronico valido"),
-  password: z.string().min(6, "La contrasena debe tener al menos 6 caracteres"),
+  email: z.string().email("Introduce un correo electrónico válido"),
+  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
   captchaAnswer: z.string().optional(),
   rememberMe: z.boolean(),
 });
 
 const supportContactSchema = z.object({
   name: z.string().trim().min(2, "Introduce tu nombre"),
-  email: z.string().trim().email("Introduce un correo valido"),
+  email: z.string().trim().email("Introduce un correo válido"),
   phone: z.string().trim().max(40).optional(),
   schoolName: z.string().trim().max(160).optional(),
   subject: z.string().trim().min(3, "Indica un asunto breve"),
-  message: z.string().trim().min(10, "Cuentanos brevemente que necesitas"),
+  message: z.string().trim().min(10, "Cuéntanos brevemente qué necesitas"),
 });
 
 const RECENT_LOGIN_EMAILS_STORAGE_KEY = "helpdesk-recent-login-emails";
@@ -42,34 +42,7 @@ type CaptchaChallenge = {
   token: string;
 };
 
-const featureItems = [
-  {
-    icon: Headphones,
-    title: "Soporte",
-    description: "Tickets de consultas,\natencion rapida.",
-  },
-  {
-    icon: BookOpenText,
-    title: "Recursos",
-    description: "Acceso a guias,\ndocumentacion y mas",
-  },
-  {
-    icon: UserRoundCheck,
-    title: "Solicitud de\nasistencia",
-    description: "Planificacion y gestion\nde intervenciones",
-    glow: true,
-  },
-  {
-    icon: GraduationCap,
-    title: "Formacion",
-    description: "Capacitacion y\ncontenidos formativos",
-  },
-  {
-    icon: PlugZap,
-    title: "API externa",
-    description: "Conexion segura con\nnuestros sistemas",
-  },
-];
+const capabilityItems = ["Soporte", "Recursos", "Solicitud de asistencia", "Formación", "API externa"];
 
 function readRecentLoginEmails() {
   try {
@@ -98,13 +71,14 @@ function writeRecentLoginEmails(email: string) {
 
 function HeroWordmark() {
   return (
-    <div>
-      <div className="flex flex-wrap items-end gap-2 leading-none">
-        <span className="text-[48px] font-semibold tracking-tight text-white sm:text-[58px] lg:text-[74px]">Macmillan</span>
-        <span className="text-[48px] font-bold tracking-tight text-[#ff7a1a] sm:text-[58px] lg:text-[74px]">Bridge</span>
+    <div className="max-w-[760px] min-w-0">
+      <div className="flex max-w-full flex-wrap items-baseline gap-x-1.5 pb-4 leading-[1.02] sm:gap-x-2 sm:pb-5">
+        <span className="text-[34px] font-semibold tracking-[-0.05em] text-white sm:text-[58px] lg:text-[80px]">Macmillan</span>
+        <span className="bridge-word inline-block translate-y-[0.02em] overflow-visible pb-[0.14em] pr-[0.04em] text-[34px] font-bold tracking-[-0.06em] sm:text-[58px] lg:text-[80px]">
+          Bridge
+        </span>
       </div>
-      <div className="mt-4 h-1 w-14 rounded-full bg-[#ff7a1a]" />
-      <p className="mt-7 text-[24px] leading-tight text-white/95 sm:text-[28px] lg:text-[34px]">
+      <p className="mt-6 text-[16px] font-medium leading-tight text-white/96 sm:mt-8 sm:text-[28px] lg:text-[34px]">
         Plataforma de soporte y servicios
       </p>
     </div>
@@ -114,19 +88,52 @@ function HeroWordmark() {
 function BackgroundRays() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_34%,rgba(80,170,255,0.95),rgba(42,112,230,0.74)_16%,rgba(15,54,152,0.42)_32%,rgba(7,31,103,0)_55%)]" />
-      <div className="absolute inset-y-0 left-[22%] right-0 top-[30%] opacity-80">
-        {Array.from({ length: 8 }).map((_, index) => (
+      <div className="absolute inset-0 bg-[linear-gradient(120deg,#03143f_0%,#08276e_32%,#1247a5_72%,#4c95ff_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_24%,rgba(125,195,255,0.42),rgba(53,122,244,0.22)_18%,rgba(10,40,115,0)_48%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_74%,rgba(36,81,190,0.24),rgba(5,26,83,0)_36%)]" />
+      <div className="absolute inset-y-[-8%] left-[14%] right-[-16%] top-[8%] opacity-80">
+        {Array.from({ length: 9 }).map((_, index) => (
           <div
             key={index}
-            className="absolute left-0 h-px origin-left rounded-full bg-gradient-to-r from-white/0 via-white/45 to-white/0"
+            className="absolute left-0 h-px origin-left overflow-hidden rounded-full bg-gradient-to-r from-white/0 via-white/14 to-white/0"
             style={{
-              top: `${12 + index * 8}%`,
-              width: `${62 + index * 4}%`,
-              transform: `rotate(${index * 6 - 18}deg)`,
+              top: `${10 + index * 9}%`,
+              width: `${72 + index * 4}%`,
+              transform: `rotate(${index * 5 - 19}deg)`,
             }}
-          />
+          >
+            <div
+              className="absolute inset-y-0 -left-[26%] w-[18%] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.52),rgba(255,255,255,0))] blur-[1px]"
+              style={{
+                animation: `rayTravel ${10.5 + index * 0.85}s linear infinite`,
+                animationDelay: `${index * 0.65}s`,
+              }}
+            />
+          </div>
         ))}
+      </div>
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,rgba(2,16,54,0),rgba(2,16,54,0.28)_48%,rgba(2,16,54,0.62)_100%)]" />
+    </div>
+  );
+}
+
+function CapabilityMarquee() {
+  const marqueeItems = [...capabilityItems, ...capabilityItems, ...capabilityItems];
+
+  return (
+    <div className="mt-10 w-full max-w-[760px] overflow-hidden rounded-[22px] border border-white/10 bg-white/[0.05] px-3 py-3 shadow-[0_24px_80px_-52px_rgba(5,18,56,0.95)] backdrop-blur-md sm:mt-12 sm:rounded-[24px] sm:px-4">
+      <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+        <div className="flex min-w-max animate-[capabilityMarquee_26s_linear_infinite] items-center gap-3.5 sm:gap-5">
+          {marqueeItems.map((item, index) => (
+            <div
+              key={`${item}-${index}`}
+              className="flex items-center gap-3.5 text-[13px] font-medium tracking-[0.03em] text-white/76 sm:gap-4 sm:text-[15px]"
+            >
+              <span className="whitespace-nowrap">{item}</span>
+              <span className="text-white/28">{index === marqueeItems.length - 1 ? "" : "·"}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -198,7 +205,7 @@ export default function MacmillanLogin() {
     onError: (error) => {
       toast({
         title: "No se pudo registrar la solicitud",
-        description: error instanceof Error ? error.message : "Intentalo de nuevo en unos minutos.",
+        description: error instanceof Error ? error.message : "Inténtalo de nuevo en unos minutos.",
         variant: "destructive",
       });
     },
@@ -242,14 +249,14 @@ export default function MacmillanLogin() {
       rawMessage.includes("429") ||
       rawMessage.toLowerCase().includes("credenciales")
     ) {
-      return "Credenciales no validas";
+      return "Credenciales no válidas";
     }
 
     if (rawMessage.toLowerCase().includes("failed to fetch")) {
-      return "No se pudo conectar con el servidor. Intentalo de nuevo en unos segundos.";
+      return "No se pudo conectar con el servidor. Inténtalo de nuevo en unos segundos.";
     }
 
-    return "No se pudo iniciar sesion. Revisa tus datos e intentalo de nuevo.";
+    return "No se pudo iniciar sesión. Revisa tus datos e inténtalo de nuevo.";
   }
 
   function openSupportDialog() {
@@ -266,56 +273,86 @@ export default function MacmillanLogin() {
   }
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[linear-gradient(115deg,#041955_0%,#072a82_30%,#0f42b0_64%,#2d7fff_100%)]">
-      <div className="relative mx-auto flex min-h-screen max-w-[1600px] flex-col px-4 py-4 lg:px-6 lg:py-5">
+    <div className="min-h-dvh overflow-x-hidden bg-[linear-gradient(115deg,#041955_0%,#072a82_30%,#0f42b0_64%,#2d7fff_100%)]">
+      <style>{`
+        .bridge-word {
+          color: transparent;
+          background-image:
+            linear-gradient(90deg,
+              #ff7a00 0%,
+              #ff8510 22%,
+              #ffd1a3 34%,
+              #ff9a32 44%,
+              #ff7a00 56%,
+              #ff8a18 70%,
+              #ffd9b5 82%,
+              #ff7a00 100%);
+          background-size: 240% 100%;
+          background-position: 115% 50%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          filter: drop-shadow(0 8px 22px rgba(255,122,0,0.18));
+          animation:
+            bridgeInnerGlow 5.8s cubic-bezier(0.42, 0, 0.18, 1) infinite,
+            bridgePulse 5.8s ease-in-out infinite;
+        }
+        @keyframes bridgeInnerGlow {
+          0%, 18% {
+            background-position: 118% 50%;
+          }
+          56%, 74% {
+            background-position: 0% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        @keyframes bridgePulse {
+          0%, 54%, 100% {
+            filter: drop-shadow(0 8px 22px rgba(255,122,0,0.18)) brightness(1);
+          }
+          63%, 74% {
+            filter: drop-shadow(0 10px 28px rgba(255,122,0,0.24)) brightness(1.08);
+          }
+        }
+        @keyframes rayTravel {
+          0% { transform: translateX(0); opacity: 0; }
+          10% { opacity: 0.72; }
+          84% { opacity: 0.18; }
+          100% { transform: translateX(760%); opacity: 0; }
+        }
+        @keyframes capabilityMarquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+      `}</style>
+      <div className="relative mx-auto flex min-h-dvh max-w-[1600px] min-w-0 flex-col px-4 py-4 sm:px-5 lg:px-6 lg:py-5">
         <BackgroundRays />
 
-        <div className="relative grid flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-center lg:gap-10">
-          <section className="flex min-h-0 flex-col justify-between py-2 lg:py-4">
-            <div className="max-w-[740px]">
+        <div className="relative grid flex-1 gap-8 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-center lg:gap-10">
+          <section className="flex min-h-0 min-w-0 flex-col justify-between py-2 sm:py-4 lg:py-8">
+            <div className="max-w-[820px] min-w-0">
               <HeroWordmark />
 
-              <p className="mt-10 max-w-[640px] text-[22px] leading-[1.55] text-white/92 sm:text-[24px] lg:text-[26px]">
-                Bridge te conecta con los equipos, servicios y soluciones de Macmillan Education, ofreciendo una experiencia unificada, agil y orientada al valor.
+              <p className="mt-7 max-w-[690px] text-[15px] leading-[1.75] text-white/78 sm:mt-10 sm:text-[20px] lg:text-[24px]">
+                Bridge refuerza nuestro soporte con una plataforma centralizada diseñada para ofrecer a clientes clave una experiencia de atención más cercana, trazable y personalizada.
               </p>
             </div>
 
-            <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5 xl:gap-0">
-              {featureItems.map(({ icon: Icon, title, description, glow }) => (
-                <div
-                  key={title}
-                  className="flex flex-col items-center rounded-[22px] border border-white/12 bg-white/5 px-3 py-4 text-center backdrop-blur-[1px] xl:rounded-none xl:border-0 xl:bg-transparent xl:px-4 xl:py-0 xl:last:border-r-0"
-                >
-                  <div
-                    className={[
-                      "mb-4 flex h-16 w-16 items-center justify-center rounded-full border text-white",
-                      glow
-                        ? "border-sky-300/70 bg-sky-400/12 shadow-[0_0_0_4px_rgba(59,130,246,0.18),0_0_30px_rgba(56,189,248,0.18)]"
-                        : "border-white/30 bg-white/7",
-                    ].join(" ")}
-                  >
-                    <Icon className="h-7 w-7" strokeWidth={1.8} />
-                  </div>
-                  <h3 className="whitespace-pre-line text-[18px] font-semibold leading-[1.12] text-white lg:text-[20px]">
-                    {title}
-                  </h3>
-                  <p className="mt-2 whitespace-pre-line text-[13px] leading-[1.45] text-white/78 lg:text-[14px]">
-                    {description}
-                  </p>
-                </div>
-              ))}
+            <div className="mt-8 sm:mt-10">
+              <CapabilityMarquee />
             </div>
           </section>
 
-          <aside className="flex items-center justify-center">
-            <div className="w-full rounded-[28px] border border-white/75 bg-white/98 p-7 shadow-[0_28px_80px_-36px_rgba(4,10,31,0.72)] lg:p-8">
+          <aside className="flex min-w-0 items-start justify-center lg:items-center">
+            <div className="w-full min-w-0 max-w-none rounded-[24px] border border-white/75 bg-white/98 p-5 shadow-[0_28px_80px_-36px_rgba(4,10,31,0.72)] sm:max-w-[430px] sm:p-6 lg:rounded-[28px] lg:p-8">
               <div className="text-center">
-                <h2 className="text-[42px] font-bold tracking-tight text-[#082c63] lg:text-[56px]">Bienvenido</h2>
-                <p className="mt-2 text-[16px] text-slate-600 lg:text-[18px]">Inicia sesion para continuar</p>
+                <h2 className="text-[36px] font-bold tracking-tight text-[#082c63] sm:text-[42px] lg:text-[56px]">Bienvenido</h2>
+                <p className="mt-2 text-[16px] text-slate-600 lg:text-[18px]">Inicia sesión para continuar</p>
               </div>
 
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-5">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="mt-7 space-y-5 lg:mt-8">
                   {loginMutation.isError && (
                     <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
                       {getLoginErrorMessage()}
@@ -327,7 +364,7 @@ export default function MacmillanLogin() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-[15px] font-semibold text-[#082c63]">Correo electronico</FormLabel>
+                        <FormLabel className="text-[15px] font-semibold text-[#082c63]">Correo electrónico</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
@@ -348,7 +385,7 @@ export default function MacmillanLogin() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-[15px] font-semibold text-[#082c63]">Contrasena</FormLabel>
+                        <FormLabel className="text-[15px] font-semibold text-[#082c63]">Contraseña</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Lock className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
@@ -362,7 +399,7 @@ export default function MacmillanLogin() {
                               type="button"
                               className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-slate-600"
                               onClick={() => setShowPassword((current) => !current)}
-                              aria-label={showPassword ? "Ocultar contrasena" : "Mostrar contrasena"}
+                              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                             >
                               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                             </button>
@@ -379,7 +416,7 @@ export default function MacmillanLogin() {
                       name="captchaAnswer"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-[15px] font-semibold text-[#082c63]">Verificacion de seguridad</FormLabel>
+                          <FormLabel className="text-[15px] font-semibold text-[#082c63]">Verificación de seguridad</FormLabel>
                           <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
                             <p className="mb-2 text-sm font-medium text-amber-900">
                               Resuelve para continuar: <span className="font-bold">{captchaChallenge.question}</span>
@@ -414,7 +451,7 @@ export default function MacmillanLogin() {
 
                     <Link href="/forgot-password">
                       <span className="cursor-pointer text-[14px] font-medium text-[#2563eb] hover:underline">
-                        Olvidaste tu contrasena?
+                        ¿Olvidaste tu contraseña?
                       </span>
                     </Link>
                   </div>
@@ -427,10 +464,10 @@ export default function MacmillanLogin() {
                     {loginMutation.isPending ? (
                       <>
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        Iniciando sesion
+                        Iniciando sesión
                       </>
                     ) : (
-                      "Iniciar sesion"
+                      "Iniciar sesión"
                     )}
                   </Button>
 
@@ -441,7 +478,7 @@ export default function MacmillanLogin() {
                   </div>
 
                   <p className="pt-2 text-center text-[14px] leading-6 text-slate-700">
-                    Necesitas ayuda? Contacta con el{" "}
+                    ¿Necesitas ayuda? Contacta con el{" "}
                     <button
                       type="button"
                       className="font-medium text-[#2563eb] hover:underline"
@@ -456,13 +493,12 @@ export default function MacmillanLogin() {
           </aside>
         </div>
 
-        <footer className="relative mt-4 rounded-[18px] bg-[#07245d]/92 px-5 py-4 text-white backdrop-blur-sm">
-          <div className="flex flex-col items-center justify-between gap-3 text-center text-[14px] lg:flex-row lg:text-left lg:text-[15px]">
+        <footer className="relative mt-6 rounded-[18px] bg-[#07245d]/92 px-4 py-4 text-white backdrop-blur-sm sm:px-5">
+          <div className="flex flex-col items-center justify-between gap-3 text-center text-[13px] sm:text-[14px] lg:flex-row lg:text-left lg:text-[15px]">
             <div className="flex items-center gap-3">
               <img src={meeLogo} alt="Macmillan Education" className="h-7 w-auto brightness-0 invert" />
               <span className="font-medium">macmillan education</span>
             </div>
-            <span className="font-medium">Bridge</span>
             <span>&copy; {currentYear} Macmillan Education. Todos los derechos reservados.</span>
           </div>
         </footer>
@@ -487,7 +523,7 @@ export default function MacmillanLogin() {
             {supportSent ? (
               <div className="space-y-4">
                 <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-5 text-sm text-emerald-800">
-                  Tu solicitud se ha registrado correctamente en el sistema de soporte. El equipo la revisara lo antes posible.
+                  Tu solicitud se ha registrado correctamente en el sistema de soporte. El equipo la revisará lo antes posible.
                 </div>
                 <DialogFooter>
                   <Button type="button" onClick={() => setSupportDialogOpen(false)}>
@@ -520,7 +556,7 @@ export default function MacmillanLogin() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Correo electronico</FormLabel>
+                          <FormLabel>Correo electrónico</FormLabel>
                           <FormControl>
                             <Input {...field} placeholder="tu@colegio.es" />
                           </FormControl>
@@ -536,7 +572,7 @@ export default function MacmillanLogin() {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Telefono</FormLabel>
+                          <FormLabel>Teléfono</FormLabel>
                           <FormControl>
                             <Input {...field} placeholder="Opcional" />
                           </FormControl>
