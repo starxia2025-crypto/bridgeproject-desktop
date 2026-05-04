@@ -515,11 +515,6 @@ export function MacmillanLayout({ children }: { children: React.ReactNode }) {
           <div className="px-3">
             <div className="h-px w-full" style={{ backgroundColor: dividerColor }} />
           </div>
-          <div className="px-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: navMutedColor }}>
-              Nuevo modulo
-            </p>
-          </div>
           <div className="flex flex-col gap-1">
             {qaNavItems.map(renderNavItem)}
           </div>

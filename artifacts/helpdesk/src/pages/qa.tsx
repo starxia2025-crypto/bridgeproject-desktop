@@ -14,7 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { buildApiUrl } from "@/lib/api-base-url";
-import { CheckCircle2, ClipboardCheck, FileUp, FlaskConical, Loader2, Plus, ShieldAlert, Sparkles, TestTube2, Users } from "lucide-react";
+import { CheckCircle2, ClipboardCheck, FileUp, Loader2, Plus, ShieldAlert, Sparkles, TestTube2, Users } from "lucide-react";
 
 type QaMeta = {
   technicians: Array<{ id: number; name: string; email: string; role: string }>;
@@ -548,17 +548,11 @@ export default function QaPage() {
     <div className="space-y-8">
       <section className="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-fuchsia-50/60 p-8 shadow-sm">
         <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-fuchsia-700">
-              <FlaskConical className="h-3.5 w-3.5" />
-              QA moderno
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900">QA</h1>
-              <p className="mt-1 max-w-3xl text-slate-500">
-                Centraliza campañas de testing, reparte casos entre técnicos, conserva evidencias y genera un histórico claro para cada release.
-              </p>
-            </div>
+          <div className="max-w-3xl">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">QA</h1>
+            <p className="mt-1 text-slate-500">
+              Centraliza campanas de testing, reparte casos entre tecnicos, conserva evidencias y genera un historico claro para cada release.
+            </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-4">
             <div className="rounded-2xl border border-white/80 bg-white/90 px-4 py-3 shadow-sm">

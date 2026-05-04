@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/hooks/use-toast";
-import { Copy, Download, KeyRound, Loader2, RefreshCcw, ShieldCheck, ToggleLeft, ToggleRight } from "lucide-react";
+import { Copy, Download, KeyRound, Loader2, RefreshCcw, ToggleLeft, ToggleRight } from "lucide-react";
 
 type ApiClientItem = {
   schoolId: number;
@@ -128,18 +128,12 @@ export default function ExternalApisPage() {
     <div className="space-y-8">
       <section className="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-cyan-50/60 p-8 shadow-sm">
         <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-700">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              APIs externas
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900">APIs externas</h1>
-              <p className="mt-1 max-w-3xl text-slate-500">
-                Gestiona clientes con API activa, controla sus llamadas, rota claves sin exponer secretos y deja una
-                base clara para auditoria y soporte.
-              </p>
-            </div>
+          <div className="max-w-3xl">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">APIs externas</h1>
+            <p className="mt-1 text-slate-500">
+              Gestiona clientes con API activa, controla sus llamadas, rota claves sin exponer secretos y deja una
+              base clara para auditoria y soporte.
+            </p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-3">

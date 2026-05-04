@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
-import { ArrowRight, CalendarDays, CalendarPlus2, CheckCircle2, Eye, Filter, Inbox, Loader2, NotebookPen, RefreshCcw, UserRoundCheck } from "lucide-react";
+import { ArrowRight, CalendarPlus2, CheckCircle2, Eye, Filter, Inbox, Loader2, NotebookPen, RefreshCcw, UserRoundCheck } from "lucide-react";
 
 type AssistanceMeta = {
   schools: Array<{ id: number; tenantId: number; name: string }>;
@@ -368,18 +368,12 @@ export default function AssistanceInboxPage() {
     <div className="space-y-8">
       <section className="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-indigo-50/70 p-8 shadow-sm">
         <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-indigo-700">
-              <CalendarDays className="h-3.5 w-3.5" />
-              Bandeja de asistencias
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900">Bandeja de asistencias</h1>
-              <p className="mt-1 max-w-3xl text-slate-500">
-                Revisa solicitudes pendientes, programa asistencias, asigna tecnico y mantén trazabilidad clara para el
-                equipo de soporte Macmillan.
-              </p>
-            </div>
+          <div className="max-w-3xl">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Bandeja de asistencias</h1>
+            <p className="mt-1 text-slate-500">
+              Revisa solicitudes pendientes, programa asistencias, asigna tecnico y manten trazabilidad clara para el
+              equipo de soporte Macmillan.
+            </p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-3">
