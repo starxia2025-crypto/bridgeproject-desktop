@@ -18,6 +18,8 @@ import {
   LifeBuoy,
   Cable,
   ClipboardPlus,
+  ClipboardCheck,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { customFetch } from "@workspace/api-client-react";
@@ -424,10 +426,11 @@ export function MacmillanLayout({ children }: { children: React.ReactNode }) {
     { href: "/audit", label: "Auditoria", icon: ActivitySquare, roles: ["superadmin", "tecnico"] },
     { href: "/settings", label: "Avisos globales", icon: AlertTriangle, roles: ["superadmin", "tecnico"] },
   ].filter((item) => item.roles.includes(user.role));
+  const qaNavItems = [
+    { href: "/qa", label: "QA", icon: ClipboardCheck, roles: ["superadmin", "tecnico"] },
+  ].filter((item) => item.roles.includes(user.role));
 
-  const NavLinks = () => (
-    <div className="flex w-full flex-col gap-1">
-      {navItems.map((item) => {
+  const renderNavItem = (item: any) => {
         const Icon = item.icon;
         const isExternalAction = item.externalDesktopApp;
         const isActive = !isExternalAction && location.startsWith(item.href);
@@ -454,55 +457,74 @@ export function MacmillanLayout({ children }: { children: React.ReactNode }) {
           }
         };
 
-        if (isExternalAction) {
-          return (
-            <button
-              key={item.href}
-              type="button"
-              className="flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-left transition-all duration-200"
-              style={{
-                backgroundColor: "transparent",
-                color: navMutedColor,
-                fontWeight: 500,
-              }}
-              onClick={() => {
-                void handleNavClick();
-              }}
-              onMouseEnter={(event) => {
-                event.currentTarget.style.backgroundColor = navHoverColor;
-              }}
-              onMouseLeave={(event) => {
-                event.currentTarget.style.backgroundColor = "transparent";
-              }}
-            >
-              <Icon className="h-4 w-4" />
-              {item.label}
-            </button>
-          );
-        }
+    if (isExternalAction) {
+      return (
+        <button
+          key={item.href}
+          type="button"
+          className="flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-left transition-all duration-200"
+          style={{
+            backgroundColor: "transparent",
+            color: navMutedColor,
+            fontWeight: 500,
+          }}
+          onClick={() => {
+            void handleNavClick();
+          }}
+          onMouseEnter={(event) => {
+            event.currentTarget.style.backgroundColor = navHoverColor;
+          }}
+          onMouseLeave={(event) => {
+            event.currentTarget.style.backgroundColor = "transparent";
+          }}
+        >
+          <Icon className="h-4 w-4" />
+          {item.label}
+        </button>
+      );
+    }
 
-        return (
-          <Link key={item.href} href={item.href}>
-            <span
-              className="flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 transition-all duration-200"
-              style={{
-                backgroundColor: isActive ? navActiveColor : "transparent",
-                color: isActive ? sidebarTextColor : navMutedColor,
-                fontWeight: isActive ? 600 : 500,
-              }}
-              onMouseEnter={(event) => {
-                if (!isActive) event.currentTarget.style.backgroundColor = navHoverColor;
-              }}
-              onMouseLeave={(event) => {
-                if (!isActive) event.currentTarget.style.backgroundColor = "transparent";
-              }}
-            >
-              <Icon className="h-4 w-4" />
-              {item.label}
-            </span>
-          </Link>
-        );
-      })}
+    return (
+      <Link key={item.href} href={item.href}>
+        <span
+          className="flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 transition-all duration-200"
+          style={{
+            backgroundColor: isActive ? navActiveColor : "transparent",
+            color: isActive ? sidebarTextColor : navMutedColor,
+            fontWeight: isActive ? 600 : 500,
+          }}
+          onMouseEnter={(event) => {
+            if (!isActive) event.currentTarget.style.backgroundColor = navHoverColor;
+          }}
+          onMouseLeave={(event) => {
+            if (!isActive) event.currentTarget.style.backgroundColor = "transparent";
+          }}
+        >
+          <Icon className="h-4 w-4" />
+          {item.label}
+        </span>
+      </Link>
+    );
+  };
+
+  const NavLinks = () => (
+    <div className="flex w-full flex-col gap-1">
+      {navItems.map(renderNavItem)}
+      {qaNavItems.length > 0 && (
+        <div className="mt-4 space-y-3">
+          <div className="px-3">
+            <div className="h-px w-full" style={{ backgroundColor: dividerColor }} />
+          </div>
+          <div className="px-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: navMutedColor }}>
+              Nuevo modulo
+            </p>
+          </div>
+          <div className="flex flex-col gap-1">
+            {qaNavItems.map(renderNavItem)}
+          </div>
+        </div>
+      )}
     </div>
   );
 

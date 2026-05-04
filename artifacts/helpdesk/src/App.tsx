@@ -22,6 +22,7 @@ import Clients from "@/pages/clients-admin";
 import Users from "@/pages/users";
 import Audit from "@/pages/audit";
 import Settings from "@/pages/settings-admin";
+import QaPage from "@/pages/qa";
 import NotFound from "@/pages/not-found";
 import { getDefaultRouteForRole } from "@/lib/default-route";
 
@@ -129,6 +130,7 @@ function Router() {
   if (location === "/portal") return <ProtectedRoute component={Portal} />;
   if (location === "/clients") return <ProtectedRoute component={Clients} roles={["superadmin", "tecnico"]} />;
   if (location === "/users") return <ProtectedRoute component={Users} roles={["superadmin", "admin_cliente", "tecnico"]} />;
+  if (location === "/qa") return <ProtectedRoute component={QaPage} roles={["superadmin", "tecnico"]} />;
   if (location === "/audit") return <ProtectedRoute component={Audit} roles={["superadmin", "tecnico"]} />;
   if (location === "/settings") return <ProtectedRoute component={Settings} />;
 

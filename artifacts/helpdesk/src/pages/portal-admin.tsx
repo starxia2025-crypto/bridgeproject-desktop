@@ -268,9 +268,9 @@ export default function PortalAdmin() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <div className="space-y-2 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">Centro de ayuda Macmillan</h1>
-          <p className="mx-auto max-w-3xl text-lg text-slate-600">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Centro de ayuda</h1>
+          <p className="max-w-3xl text-slate-500">
             Consulta manuales de uso, videos explicativos, enlaces utiles, preguntas frecuentes y requisitos de acceso en un solo lugar.
           </p>
         </div>

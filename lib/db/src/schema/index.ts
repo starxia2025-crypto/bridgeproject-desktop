@@ -11,3 +11,8 @@ export * from "./assistance_requests";
 export * from "./assistance_request_notes";
 export * from "./external_api_clients";
 export * from "./external_api_logs";
+export * from "./qa_releases";
+export * from "./qa_release_sections";
+export * from "./qa_test_cases";
+export * from "./qa_test_results";
+export * from "./qa_test_evidences";

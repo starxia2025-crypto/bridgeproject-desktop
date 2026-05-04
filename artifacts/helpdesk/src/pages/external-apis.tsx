@@ -134,8 +134,8 @@ export default function ExternalApisPage() {
               APIs externas
             </div>
             <div>
-              <h1 className="text-4xl font-semibold tracking-tight text-slate-950">Integraciones y trazabilidad</h1>
-              <p className="mt-2 max-w-3xl text-base text-slate-600">
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900">APIs externas</h1>
+              <p className="mt-1 max-w-3xl text-slate-500">
                 Gestiona clientes con API activa, controla sus llamadas, rota claves sin exponer secretos y deja una
                 base clara para auditoria y soporte.
               </p>

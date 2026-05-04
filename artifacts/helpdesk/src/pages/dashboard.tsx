@@ -363,8 +363,8 @@ export default function Dashboard() {
               Estadisticas
             </div>
             <div>
-              <h1 className="text-4xl font-semibold tracking-tight text-slate-950">Panel de consultas</h1>
-              <p className="mt-2 max-w-2xl text-base text-slate-600">
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900">Dashboard</h1>
+              <p className="mt-1 max-w-2xl text-slate-500">
                 Una vista clara de volumen, resolucion, tipologias y carga por colegio para tomar decisiones rapidas.
               </p>
             </div>

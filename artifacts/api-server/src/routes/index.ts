@@ -10,6 +10,7 @@ import auditRouter from "./audit";
 import systemAlertRouter from "./system-alert";
 import externalIntegrationsRouter from "./external-integrations";
 import assistanceRouter from "./assistance";
+import qaRouter from "./qa";
 
 const router: IRouter = Router();
 
@@ -24,5 +25,6 @@ router.use("/audit", auditRouter);
 router.use("/system-alert", systemAlertRouter);
 router.use("/integrations", externalIntegrationsRouter);
 router.use("/assistance", assistanceRouter);
+router.use("/qa", qaRouter);
 
 export default router;
