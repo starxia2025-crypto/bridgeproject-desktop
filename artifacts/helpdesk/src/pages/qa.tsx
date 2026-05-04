@@ -525,6 +525,28 @@ export default function QaPage() {
     () => (detail?.results ?? []).reduce((sum, result) => sum + result.evidences.length, 0),
     [detail],
   );
+  const qaTeamSummary = useMemo(() => {
+    const technicians = metaQuery.data?.technicians ?? [];
+    const cases = detail?.sections.flatMap((section) => section.cases) ?? [];
+
+    return technicians.map((tech) => {
+      const assignedCases = cases.filter((item) => item.assignedToUserId === tech.id);
+      const completedCases = assignedCases.filter((item) => item.results.length > 0);
+      const openCases = assignedCases.filter((item) => item.results.length === 0);
+      const failedOrBlockedCases = assignedCases.filter((item) => {
+        const latestResult = item.results[0];
+        return latestResult?.outcome === "failed" || latestResult?.outcome === "blocked";
+      });
+
+      return {
+        ...tech,
+        assignedCount: assignedCases.length,
+        completedCount: completedCases.length,
+        openCount: openCases.length,
+        failedCount: failedOrBlockedCases.length,
+      };
+    });
+  }, [detail, metaQuery.data?.technicians]);
 
   function openCreateCase(sectionId: number) {
     setSelectedSectionId(sectionId);
@@ -770,18 +792,40 @@ export default function QaPage() {
                   <Card className="rounded-[1.75rem] border-slate-200/80 shadow-sm">
                     <CardHeader>
                       <CardTitle>Equipo QA</CardTitle>
-                      <CardDescription>Tecnicos disponibles para repartirse la release.</CardDescription>
+                      <CardDescription>Reparto real de la release, con carga y avance por tecnico.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                      {(metaQuery.data?.technicians ?? []).map((tech) => (
+                      {qaTeamSummary.length === 0 ? (
+                        <div className="rounded-2xl border border-dashed border-slate-200 px-4 py-6 text-sm text-slate-500">
+                          No hay tecnicos disponibles para esta release.
+                        </div>
+                      ) : qaTeamSummary.map((tech) => (
                         <div key={tech.id} className="rounded-2xl border border-slate-200 bg-white px-4 py-3">
                           <div className="flex items-start gap-3">
                             <div className="mt-0.5 rounded-full bg-slate-100 p-2">
                               <Users className="h-4 w-4 text-slate-600" />
                             </div>
-                            <div className="min-w-0">
+                            <div className="min-w-0 flex-1">
                               <p className="font-medium text-slate-900">{tech.name}</p>
-                              <p className="text-sm text-slate-500">{tech.email}</p>
+                              <p className="truncate text-sm text-slate-500" title={tech.email}>{tech.email}</p>
+                              <div className="mt-3 grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
+                                <div className="rounded-xl bg-slate-50 px-2.5 py-2">
+                                  <p className="font-semibold text-slate-900">{tech.assignedCount}</p>
+                                  <p className="text-slate-500">Asignados</p>
+                                </div>
+                                <div className="rounded-xl bg-slate-50 px-2.5 py-2">
+                                  <p className="font-semibold text-slate-900">{tech.completedCount}</p>
+                                  <p className="text-slate-500">Completados</p>
+                                </div>
+                                <div className="rounded-xl bg-slate-50 px-2.5 py-2">
+                                  <p className="font-semibold text-slate-900">{tech.openCount}</p>
+                                  <p className="text-slate-500">Abiertos</p>
+                                </div>
+                                <div className="rounded-xl bg-slate-50 px-2.5 py-2">
+                                  <p className="font-semibold text-rose-600">{tech.failedCount}</p>
+                                  <p className="text-slate-500">Fallos</p>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
